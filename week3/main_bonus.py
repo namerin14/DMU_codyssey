@@ -25,7 +25,7 @@ dangerous_items = [item for item in inventory_list if item['flammability'] >= 0.
 for item in dangerous_items:
     print(item)
 
-# 보너스1: CSV 파일 저장
+# CSV 파일 저장
 try:
     with open('Mars_Base_Inventory_danger.csv', 'w') as file:
         file.write('substance,flammability\n')
@@ -35,7 +35,7 @@ except Exception as e:
     print(f"파일 저장 오류: {e}")
     exit()
 
-# 보너스2: 이진 파일 저장
+# 보너스1: 이진 파일 저장
 # text: 50바이트, float: 4바이트
 try:
     with open('Mars_Base_Inventory_List.bin', 'wb') as bin_file:
@@ -46,7 +46,7 @@ except Exception as e:
     print(f"이진 파일 저장 오류: {e}")
     exit()
 
-# 보너스3: 이진 파일 읽기
+# 보너스2: 이진 파일 읽기
 try:
     with open('Mars_Base_Inventory_List.bin', 'rb') as bin_file:
         while True:
@@ -60,6 +60,6 @@ except Exception as e:
     print(f"이진 파일 읽기 오류: {e}")
     exit()
 
-
+# 보너스3
 # 텍스트 파일: 사람이 읽을 수 있는 문자 형식, 수정과 호환성이 용이하지만 저장 효율성이 낮고 속도가 느릴 수 있음.
 # 이진 파일: 바이트 형식, 저장 효율성과 속도에 이점이 있지만, 사람이 읽을 수 없고 수정이 어려움.
