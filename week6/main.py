@@ -47,6 +47,7 @@ class MissionComputer:
         }
         self.ds = DummySensor()
         self.data_log = []
+        self.create_default_setting_file()
 
     def get_sensor_data(self):
         print('Press Ctrl+C to stop...')
@@ -57,7 +58,6 @@ class MissionComputer:
                 self.data_log.append(self.env_values.copy())
 
                 print(self.env_values)
-
                 if len(self.data_log) % 60 == 0:
                     self.calculate_five_min_avg()
 
@@ -92,7 +92,7 @@ class MissionComputer:
             if 'cpu_cores' in settings:
                 info['cpu_cores'] = os.cpu_count()
             if 'memory' in settings:
-                info['memory'] = round(psutil.virtual_memory().total / (1024 ** 3), 2)  # GB 단위
+                info['memory'] = round(psutil.virtual_memory().total / (1024 ** 3), 2)
         except Exception as e:
             info['error'] = str(e)
 
@@ -124,6 +124,12 @@ class MissionComputer:
         except FileNotFoundError:
             print('setting.txt not found. Using default settings.')
         return settings
+
+    def create_default_setting_file(self):
+        if not os.path.exists('setting.txt'):
+            with open('setting.txt', 'w', encoding='utf-8') as file:
+                file.write('info=operating_system, os_version, cpu_type, cpu_cores, memory\n')
+                file.write('load=cpu_usage, memory_usage\n')
 
 
 runComputer = MissionComputer()
